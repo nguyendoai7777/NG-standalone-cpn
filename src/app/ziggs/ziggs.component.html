@@ -1,0 +1,12 @@
+<p>ziggs works!</p>
+
+<div (click)="toggle()">{{!show ? 'show' : 'hidden'}}</div>
+<div (click)="show2 = !show2">{{!show2 ? 'show2' : 'hidden2'}}</div>
+
+<div [portal]="show" class="hehe">
+  <div>Portal Content</div>
+</div>
+
+<div [portal]="show2" class="hehe">
+  <div>Portal Conten 2 t</div>
+</div>
