@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { TadaComponent } from './tada/tada.component';
+import { PortalDirective } from './directive/portal.directive';
 
 @NgModule({
   declarations: [
