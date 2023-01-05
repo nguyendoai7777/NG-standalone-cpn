@@ -1,10 +1,25 @@
-import { Directive, ElementRef, inject, Input, NgModule, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgModule, OnChanges, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
+/**
+ * This directive append to body as default.
+ *
+ * Use case:  modal, popup, popover, dialog, etc.
+ *
+ * How to use:
+ *
+ * <div [portal]="yourStatement"></div>
+ *
+ * @prop portal boolean
+ *
+ *
+ *  */
+
 @Directive({
-  selector: '[portal]'
+  selector: '[portal]',
+  standalone: true,
 })
-export class PortalDirective implements OnChanges {
+export class PortalDirective implements OnChanges, OnDestroy {
   @Input() portal = true;
   dcm = inject(DOCUMENT);
 
@@ -22,17 +37,17 @@ export class PortalDirective implements OnChanges {
       this.rd2.appendChild(this.dcm.body, this.elr.nativeElement);
     } else {
       const existed = this.dcm.body.querySelector('[cpn-type="portal"]');
-      if(existed) {
-        this.rd2.removeChild(this.dcm.body, this.elr.nativeElement);
+      if (existed) {
+        this.rd2.removeChild(this.dcm.body, this.elr.nativeElement || existed);
       }
     }
   }
-}
 
-@NgModule({
-  declarations: [PortalDirective],
-  imports: [],
-  exports: [PortalDirective]
-})
-export class PortalModule {
+  ngOnDestroy() {
+    const existed = this.dcm.body.querySelector('[cpn-type="portal"]');
+    console.log(`destroy: `, existed, this.elr.nativeElement);
+    if (existed) {
+      this.rd2.removeChild(this.dcm.body, existed);
+    }
+  }
 }

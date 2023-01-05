@@ -1,6 +1,6 @@
 import { Component, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PortalModule } from '../directive/portal.directive';
+import { PortalDirective } from '@directive';
 
 const init = {
   name: 'void',
@@ -30,7 +30,7 @@ class InfoMapperSan {
   standalone: true,
   imports: [
     CommonModule,
-    PortalModule
+    PortalDirective
   ],
   templateUrl: './ziggs.component.html',
   styleUrls: ['./ziggs.component.scss'],
