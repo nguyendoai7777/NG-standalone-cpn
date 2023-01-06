@@ -10,6 +10,8 @@ import { DOCUMENT } from '@angular/common';
  *
  * <div [portal]="yourStatement"></div>
  *
+ * @use use for standalone components by default, if use with module, remove `standalone: true` in @decorator declaration
+ *
  * @prop portal boolean
  *
  *
@@ -45,9 +47,10 @@ export class PortalDirective implements OnChanges, OnDestroy {
 
   ngOnDestroy() {
     const existed = this.dcm.body.querySelector('[cpn-type="portal"]');
-    console.log(`destroy: `, existed, this.elr.nativeElement);
     if (existed) {
       this.rd2.removeChild(this.dcm.body, existed);
     }
   }
 }
+
+
