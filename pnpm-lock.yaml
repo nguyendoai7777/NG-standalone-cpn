@@ -19,6 +19,7 @@ specifiers:
   karma-coverage: ~2.2.0
   karma-jasmine: ~5.1.0
   karma-jasmine-html-reporter: ~2.0.0
+  ngd-portal: ^1.0.0
   reflect-metadata: ^0.1.13
   rxjs: ~7.5.0
   tslib: ^2.3.0
@@ -34,6 +35,7 @@ dependencies:
   '@angular/platform-browser': 15.0.4_bwwplqn6fknm3semymfqlvw5bm
   '@angular/platform-browser-dynamic': 15.0.4_hnn6v3m7xpfwy5wugozvutqsyi
   '@angular/router': 15.0.4_6qoe6dvkj2mvffppuvjrhovg7y
+  ngd-portal: 1.0.0_wcjhsjedbutghxn65tv34lliyq
   reflect-metadata: 0.1.13
   rxjs: 7.5.7
   tslib: 2.4.1
@@ -4838,6 +4840,17 @@ packages:
   /neo-async/2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
+
+  /ngd-portal/1.0.0_wcjhsjedbutghxn65tv34lliyq:
+    resolution: {integrity: sha512-w6pvt4g3pEiV1Lh6nmaLVDH+ooVU6+aifoxdMZGekN03JI0Qmv04dymu51ENlVC8n3Jl1J1APxJMMyqp3i3aDQ==}
+    peerDependencies:
+      '@angular/common': ^14.0.0 || ^15.0.0
+      '@angular/core': ^14.0.0 || ^15.0.0
+    dependencies:
+      '@angular/common': 15.0.4_35fj7bqlhadjjbsew5x5pstq4q
+      '@angular/core': 15.0.4_rxjs@7.5.7+zone.js@0.12.0
+      tslib: 2.4.1
+    dev: false
 
   /nice-napi/1.0.2:
     resolution: {integrity: sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA==}
