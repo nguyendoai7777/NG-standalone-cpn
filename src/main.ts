@@ -1,16 +1,3 @@
-import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { provideRouter } from '@angular/router';
 
-bootstrapApplication(AppComponent, {
-  providers: [
-    provideRouter([
-      {
-        path: 'ziggs',
-        loadComponent: () => import('src/app/ziggs/ziggs.component').then(c => c.ZiggsComponent)
-      }
-    ])
-  ]
-}).then(() => {
-  console.log(`app running`);
-});
+void AppComponent.boostrap();
