@@ -1,11 +1,10 @@
 import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabComponent } from './tab.component';
-import { TabItemProps } from '../models/shared';
 
 @Component({
   standalone: true,
-  selector: 'tab-panel',
+  selector: 'tab-panel[label]',
   imports: [
     CommonModule,
   ],
@@ -24,8 +23,9 @@ export class TabPanelComponent {
   ) { }
 
   ngOnInit(): void {
-    if (!this.label) {
-      throw new Error(`label must be set`);
+    const len = this.label.trim();
+    if (!this.label || !len.length) {
+      console.log(`%cYou should provide label as string and not put empty at <tab-panel>`, 'color: orange; background-color: rgb(255 76 76 / 20%);');
     }
     this.tab.addTab(this);
   }
