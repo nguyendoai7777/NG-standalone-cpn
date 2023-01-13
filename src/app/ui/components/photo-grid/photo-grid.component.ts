@@ -22,7 +22,7 @@ import { injectPaginationStore } from '@stores/pagination.store';
     <mat-paginator
       *ngrxLet="paginatorStore.pagination$ as paginator"
       [showFirstLastButtons]="true"
-      [length]="paginator.pageSize"
+      [length]="paginator.total"
       [pageSize]="paginator.pageSize"
       [pageIndex]="paginator.pageIndex"
       (page)="paginatorStore.setPage($event.pageIndex + 1)"

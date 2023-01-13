@@ -40,10 +40,11 @@ export class PhotosStore
   private readonly searchBox = injectSearchBox();
   readonly searchBox$ = this.select((s) => s.searchBox);
   readonly photos$ = this.select((s) => s.photos, { debounce: true });
+
   readonly getPhotos = this.effect<GetPhotosProps>(
     pipe(
-      switchMap(({ query, page }) => {
-        return defer(() =>
+      switchMap(({ query, page }) =>
+        defer(() =>
           query
             ? this.dataAccessService.searchPhotos({ query, page })
             : this.dataAccessService.randomPhotos(page)
@@ -53,8 +54,8 @@ export class PhotosStore
             this.patchState({ photos: r.photos });
           }),
           catchError(() => EMPTY)
-        );
-      })
+        )
+      )
     )
   );
 

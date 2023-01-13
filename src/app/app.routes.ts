@@ -11,7 +11,7 @@ export const appRoutes: Routes = [
   },
   {
     path: '',
-    loadComponent: () => import('@layouts/layout.component'),
+    loadComponent: () => import('@layouts/layout.component'), // k can then(c => c.Component) neu export class dưới dạng default
     loadChildren: () => import('@layouts/layout.routes'),
   },
 ];
