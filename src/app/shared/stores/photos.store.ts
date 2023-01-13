@@ -20,6 +20,7 @@ interface PhotosInitState {
 interface GetPhotosProps {
   query: string;
   page: number;
+  per_page: number;
 }
 
 export const [injectDefaultQuery, provideDefaultQuery] =
@@ -36,26 +37,26 @@ export class PhotosStore
   private readonly dataAccessService = injectDataAccessService();
   private readonly paginationStore = injectPaginationStore();
   private readonly defaultQuery = injectDefaultQuery();
-  readonly query$ = this.select((s) => s.query, { debounce: true });
   private readonly searchBox = injectSearchBox();
+  readonly query$ = this.select((s) => s.query, { debounce: true });
   readonly searchBox$ = this.select((s) => s.searchBox);
   readonly photos$ = this.select((s) => s.photos, { debounce: true });
 
   readonly getPhotos = this.effect<GetPhotosProps>(
     pipe(
-      switchMap(({ query, page }) =>
-        defer(() =>
+      switchMap(({ query, page, per_page }) => {
+        return defer(() =>
           query
-            ? this.dataAccessService.searchPhotos({ query, page })
-            : this.dataAccessService.randomPhotos(page)
+            ? this.dataAccessService.searchPhotos({ query, page, per_page })
+            : this.dataAccessService.randomPhotos({ page, per_page })
         ).pipe(
           tap((r) => {
             this.paginationStore.setTotal(r.total_results);
             this.patchState({ photos: r.photos });
           }),
           catchError(() => EMPTY)
-        )
-      )
+        );
+      })
     )
   );
 
@@ -64,7 +65,7 @@ export class PhotosStore
       withLatestFrom(this.query$),
       tap(([query, previousQuery]) => {
         if (previousQuery && !query) {
-          this.paginationStore.setPage(1);
+          this.paginationStore.setPage({ currentPage: 1 });
         }
         this.patchState({ query });
       })
@@ -81,6 +82,7 @@ export class PhotosStore
         {
           page: this.paginationStore.currentPage$,
           query: this.query$,
+          per_page: this.paginationStore.pageSize$,
         },
         { debounce: true }
       )

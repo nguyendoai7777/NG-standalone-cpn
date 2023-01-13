@@ -7,6 +7,7 @@ import { AppConfigProps } from '@config/config.interface';
 import { injectAppConfig, provideAppConfig } from '@config/config.di';
 import appRoutes from './app.routes';
 import { HttpInterceptorFn, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   standalone: true,
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit {
       providers: [
         provideRouter(appRoutes),
         importProvidersFrom(BrowserAnimationsModule),
+        importProvidersFrom(MatDialogModule),
         provideAppConfig(cfg),
         provideHttpClient(withInterceptors([this.Interceptor])),
       ],

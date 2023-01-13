@@ -9,7 +9,7 @@ const layoutRoutes: Route[] = [
     loadComponent: () => import('@components/photo-grid/photo-grid.component'),
     providers: [
       provideComponentStore(PaginationStore),
-      providePhotosStore('computer'),
+      providePhotosStore('hela'),
       provideSearchBox(false),
     ],
   },

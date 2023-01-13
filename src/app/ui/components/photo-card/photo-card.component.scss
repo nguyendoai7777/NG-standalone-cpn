@@ -4,6 +4,10 @@
   mat-card {
     width: 500px;
 
+    img {
+      width: 100%;
+    }
+
     mat-card-header, mat-card-actions {
       padding: 1rem;
     }

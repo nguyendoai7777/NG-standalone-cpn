@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PhotoGridComponent } from '@components/photo-grid/photo-grid.component';
+import PhotoGridComponent from '@components/photo-grid/photo-grid.component';
 
 @Component({
   selector: 'random',

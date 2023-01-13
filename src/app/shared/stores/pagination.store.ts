@@ -14,10 +14,11 @@ export class PaginationStore extends ComponentStore<PaginationInitState> impleme
   private readonly appConfig = injectAppConfig();
 
   readonly currentPage$ = this.select((s) => s.currentPage);
+  readonly pageSize$ = this.select((s) => s.pageSize);
   readonly pagination$ = this.select(
     {
       pageIndex: this.currentPage$.pipe(map((c) => c - 1)),
-      pageSize: this.select((s) => s.pageSize),
+      pageSize: this.pageSize$,
       total: this.select((s) => s.total),
     },
     { debounce: true }
@@ -29,11 +30,11 @@ export class PaginationStore extends ComponentStore<PaginationInitState> impleme
   }));
 
   // dùng effect nếu muốn tác động vào stream
-  readonly setPage = this.effect<number>(
+  readonly setPage = this.effect<{ pageSize?: number; currentPage: number }>(
     pipe(
       debounceTime(250),
-      tap((currentPage) => {
-        this.patchState({ currentPage });
+      tap(({ currentPage, pageSize }) => {
+        this.patchState({ currentPage, pageSize });
       })
     )
   );

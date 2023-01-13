@@ -1,15 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { Photo } from '@model/photo.model';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { DetailDialogComponent } from '@components/detail-dialog/detail-dialog.component';
 
 @Component({
   selector: 'photo-card[photo]',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatIconModule],
   template: `
-    <mat-card>
+    <mat-card (click)="openDetail()">
       <mat-card-header>
         <mat-card-title>{{ photo.photographer }}</mat-card-title>
         <mat-card-subtitle>{{ photo.alt }}</mat-card-subtitle>
@@ -26,13 +28,21 @@ import { MatIconModule } from '@angular/material/icon';
     </mat-card>
   `,
   styleUrls: ['./photo-card.component.scss'],
+  providers: [],
 })
 export class PhotoCardComponent {
   @Input() photo!: Photo;
-
+  matDialog = inject(MatDialog);
   alt = '';
 
   ngOnInit() {
     this.alt = this.photo?.alt || `Photo of ${this.photo.photographer}`;
+  }
+
+  openDetail() {
+    this.matDialog.open(DetailDialogComponent, {
+      data: this.photo,
+      autoFocus: false,
+    });
   }
 }

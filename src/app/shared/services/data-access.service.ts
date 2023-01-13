@@ -9,15 +9,22 @@ export class DataAccessService {
   private readonly httpClient = inject(HttpClient);
   private readonly appConfig = injectAppConfig();
 
-  randomPhotos(page = 1): Observable<PhotoPaginationProps> {
+  randomPhotos({
+    page = 1,
+    per_page = this.appConfig.appInfo.pageSize,
+  }): Observable<PhotoPaginationProps> {
     return this.httpClient.get<PhotoPaginationProps>(`${this.appConfig.baseUrl}/curated`, {
-      params: { per_page: this.appConfig.appInfo.pageSize, page },
+      params: { per_page, page },
     });
   }
 
-  searchPhotos({ query = '', page = 1 }): Observable<PhotoPaginationProps> {
+  searchPhotos({
+    query = '',
+    page = 1,
+    per_page = this.appConfig.appInfo.pageSize,
+  }): Observable<PhotoPaginationProps> {
     return this.httpClient.get<PhotoPaginationProps>(`${this.appConfig.baseUrl}/search`, {
-      params: { per_page: this.appConfig.appInfo.pageSize, page, query },
+      params: { per_page, page, query },
     });
   }
 }
