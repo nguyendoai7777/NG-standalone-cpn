@@ -1,3 +1,6 @@
 import { AppComponent } from './app/app.component';
 
-void AppComponent.boostrap();
+(async () => {
+  const config = await fetch('assets/config.json').then((r) => r.json());
+  void AppComponent.boostrap(config);
+})();
