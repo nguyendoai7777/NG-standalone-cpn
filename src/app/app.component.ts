@@ -6,12 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppConfigProps } from '@config/config.interface';
 import { injectAppConfig, provideAppConfig } from '@config/config.di';
 import appRoutes from './app.routes';
-import {
-  HttpInterceptor,
-  HttpInterceptorFn,
-  provideHttpClient,
-  withInterceptors,
-} from '@angular/common/http';
+import { HttpInterceptorFn, provideHttpClient, withInterceptors } from '@angular/common/http';
 
 @Component({
   standalone: true,

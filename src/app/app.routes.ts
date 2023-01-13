@@ -11,7 +11,7 @@ export const appRoutes: Routes = [
   },
   {
     path: '',
-    loadComponent: () => import('@layouts/layout.component').then((c) => c.LayoutComponent),
+    loadComponent: () => import('@layouts/layout.component'),
     loadChildren: () => import('@layouts/layout.routes'),
   },
 ];

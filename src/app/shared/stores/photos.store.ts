@@ -14,6 +14,7 @@ import { Photo } from '@model/photo.model';
 interface PhotosInitState {
   photos: Photo[];
   query: string;
+  searchBox: boolean;
 }
 
 interface GetPhotosProps {
@@ -24,6 +25,9 @@ interface GetPhotosProps {
 export const [injectDefaultQuery, provideDefaultQuery] =
   createInjectionToken<string>('Default Query');
 
+export const [injectSearchBox, provideSearchBox] =
+  createInjectionToken<boolean>('Search Box State');
+
 @Injectable()
 export class PhotosStore
   extends ComponentStore<PhotosInitState>
@@ -33,7 +37,8 @@ export class PhotosStore
   private readonly paginationStore = injectPaginationStore();
   private readonly defaultQuery = injectDefaultQuery();
   readonly query$ = this.select((s) => s.query, { debounce: true });
-
+  private readonly searchBox = injectSearchBox();
+  readonly searchBox$ = this.select((s) => s.searchBox);
   readonly photos$ = this.select((s) => s.photos, { debounce: true });
   readonly getPhotos = this.effect<GetPhotosProps>(
     pipe(
@@ -66,7 +71,7 @@ export class PhotosStore
   );
 
   ngrxOnStoreInit() {
-    this.setState({ photos: [], query: this.defaultQuery });
+    this.setState({ photos: [], query: this.defaultQuery, searchBox: this.searchBox });
   }
 
   ngrxOnStateInit() {

@@ -37,6 +37,6 @@ import { AppBarComponent } from '@components/app-bar/app-bar.component';
     `,
   ],
 })
-export class LayoutComponent {
+export default class LayoutComponent {
   appConfig = injectAppConfig();
 }

@@ -28,7 +28,7 @@ import { injectPaginationStore } from '@stores/pagination.store';
       (page)="paginatorStore.setPage($event.pageIndex + 1)"
     ></mat-paginator>
     <search
-      *ngIf="searchBox"
+      *ngIf="photosStore.searchBox$ | ngrxPush"
       [defaultQuery]="(photosStore.query$ | ngrxPush)!"
       (query)="photosStore.setQuery($event)"
     ></search>
@@ -38,7 +38,7 @@ import { injectPaginationStore } from '@stores/pagination.store';
   `,
   styleUrls: ['./photo-grid.component.scss'],
 })
-export class PhotoGridComponent {
+export default class PhotoGridComponent {
   @Input() searchBox = false;
   readonly defQuery = injectDefaultQuery();
   readonly photosStore = injectPhotosStore();

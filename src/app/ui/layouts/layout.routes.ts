@@ -1,18 +1,26 @@
 import { Route } from '@angular/router';
 import { provideComponentStore } from '@ngrx/component-store';
 import { PaginationStore } from '@stores/pagination.store';
-import { providePhotosStore } from '@stores/photos.store';
+import { providePhotosStore, provideSearchBox } from '@stores/photos.store';
 
 const layoutRoutes: Route[] = [
   {
     path: '',
-    loadComponent: () => import('@pages/home/home.component').then((c) => c.HomeComponent),
-    providers: [provideComponentStore(PaginationStore), providePhotosStore('computer')],
+    loadComponent: () => import('@components/photo-grid/photo-grid.component'),
+    providers: [
+      provideComponentStore(PaginationStore),
+      providePhotosStore('computer'),
+      provideSearchBox(false),
+    ],
   },
   {
     path: 'random',
-    loadComponent: () => import('@pages/random/random.component').then((c) => c.RandomComponent),
-    providers: [provideComponentStore(PaginationStore), providePhotosStore()],
+    loadComponent: () => import('@components/photo-grid/photo-grid.component'),
+    providers: [
+      provideComponentStore(PaginationStore),
+      providePhotosStore(),
+      provideSearchBox(true),
+    ],
   },
 ];
 
