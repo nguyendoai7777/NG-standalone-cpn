@@ -1,3 +1,8 @@
 {
-  "baseUrl": "https://24h.com.vn"
+  "appInfo": {
+    "page": 1,
+    "pageSize": 15,
+    "apiKey": "563492ad6f917000010000012fec1db73a6241b1b435f5ff7dc85e1d"
+  },
+  "baseUrl": "https://api.pexels.com/v1"
 }

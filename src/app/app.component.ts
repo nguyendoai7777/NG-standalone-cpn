@@ -3,9 +3,15 @@ import { CommonModule } from '@angular/common';
 import { provideRouter, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { appRoutes, ROUTES_NAME } from './app.routes';
 import { AppConfigProps } from '@config/config.interface';
-import { provideAppConfig } from '@config/config.di';
+import { injectAppConfig, provideAppConfig } from '@config/config.di';
+import appRoutes from './app.routes';
+import {
+  HttpInterceptor,
+  HttpInterceptorFn,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
 
 @Component({
   standalone: true,
@@ -17,6 +23,19 @@ import { provideAppConfig } from '@config/config.di';
 })
 export class AppComponent implements OnInit {
   router = inject(Router);
+  private static readonly Interceptor: HttpInterceptorFn = (req, next) => {
+    const { appInfo } = injectAppConfig();
+    if (!appInfo) {
+      return next(req);
+    }
+    return next(
+      req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${appInfo.apiKey}`,
+        },
+      })
+    );
+  };
 
   static boostrap(cfg: AppConfigProps) {
     return bootstrapApplication(this, {
@@ -24,11 +43,12 @@ export class AppComponent implements OnInit {
         provideRouter(appRoutes),
         importProvidersFrom(BrowserAnimationsModule),
         provideAppConfig(cfg),
+        provideHttpClient(withInterceptors([this.Interceptor])),
       ],
     }).catch((e) => console.error(`something went wrong: `, e));
   }
 
   ngOnInit(): void {
-    void this.router.navigateByUrl(ROUTES_NAME.TENANT);
+    // void this.router.navigateByUrl(ROUTES_NAME.TENANT);
   }
 }

@@ -21,10 +21,12 @@
     "paths": {
       "@pages/*": ["src/app/ui/pages/*"],
       "@components/*": ["src/app/ui/components/*"],
-      "@layout/*": ["src/app/ui/layout/*"],
+      "@layouts/*": ["src/app/ui/layouts/*"],
       "@config/*": ["src/app/shared/config/*"],
       "@services/*": ["src/app/shared/services/*"],
-      "@constants/*": ["src/app/shared/constants/*"]
+      "@constants/*": ["src/app/shared/constants/*"],
+      "@stores/*": ["src/app/shared/stores/*"],
+      "@model/*": ["src/app/shared/model/*"],
     },
     "useDefineForClassFields": false,
     "lib": ["ES2022", "dom"]
