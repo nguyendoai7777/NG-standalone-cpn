@@ -11,12 +11,12 @@ import { DetailDialogComponent } from '@components/detail-dialog/detail-dialog.c
   standalone: true,
   imports: [CommonModule, MatCardModule, MatIconModule],
   template: `
-    <mat-card (click)="openDetail()">
+    <mat-card>
       <mat-card-header>
         <mat-card-title>{{ photo.photographer }}</mat-card-title>
         <mat-card-subtitle>{{ photo.alt }}</mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content>
+      <mat-card-content (click)="openDetail()">
         <img mat-card-image [src]="photo.src.large" [alt]="alt" />
       </mat-card-content>
       <mat-card-actions>
