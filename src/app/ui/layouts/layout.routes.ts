@@ -8,8 +8,8 @@ const layoutRoutes: Route[] = [
     path: '',
     loadComponent: () => import('@components/photo-grid/photo-grid.component'),
     providers: [
-      provideComponentStore(PaginationStore),
       providePhotosStore('hela'),
+      provideComponentStore(PaginationStore),
       provideSearchBox(false),
     ],
   },
@@ -17,8 +17,8 @@ const layoutRoutes: Route[] = [
     path: 'random',
     loadComponent: () => import('@components/photo-grid/photo-grid.component'),
     providers: [
-      provideComponentStore(PaginationStore),
       providePhotosStore(),
+      provideComponentStore(PaginationStore),
       provideSearchBox(true),
     ],
   },

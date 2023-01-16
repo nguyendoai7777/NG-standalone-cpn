@@ -45,6 +45,7 @@ export class PhotosStore
   readonly getPhotos = this.effect<GetPhotosProps>(
     pipe(
       switchMap(({ query, page, per_page }) => {
+        console.log(`photo.store.ts => getPhotos<effect>`);
         return defer(() =>
           query
             ? this.dataAccessService.searchPhotos({ query, page, per_page })
@@ -60,10 +61,20 @@ export class PhotosStore
     )
   );
 
+  readonly getSomething = this.effect<any>(
+    pipe(
+      tap(() => {
+        console.log(`photo.store.ts => getSomething<effect>`);
+        // this.patchState({ query: '' });
+      })
+    )
+  );
+
   readonly setQuery = this.effect<string>(
     pipe(
       withLatestFrom(this.query$),
       tap(([query, previousQuery]) => {
+        console.log(`photo.store.ts => setQuery<string>`);
         if (previousQuery && !query) {
           this.paginationStore.setPage({ currentPage: 1 });
         }
@@ -77,6 +88,8 @@ export class PhotosStore
   }
 
   ngrxOnStateInit() {
+    console.log(`photo.store.ts => ngrxOnStateInit`);
+
     this.getPhotos(
       this.select(
         {

@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
         mat-icon-button
         aria-label="Clear"
         color="accent"
-        [disabled]="queryControl?.value?.length === 0"
+        [disabled]="(queryControl.value || '').length === 0"
         (click)="queryControl.reset()"
       >
         <mat-icon>close</mat-icon>

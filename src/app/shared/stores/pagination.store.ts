@@ -24,22 +24,30 @@ export class PaginationStore extends ComponentStore<PaginationInitState> impleme
     { debounce: true }
   );
 
-  readonly setTotal: (total: number) => void = this.updater<number>((state, total) => ({
-    ...state,
-    total,
-  }));
+  readonly setTotal: (total: number) => void = this.updater<number>((state, total) => {
+    console.log(
+      `pagination.store.ts => setTotal<updater> \n -------------------------------------`
+    );
+    return {
+      ...state,
+      total,
+    };
+  });
 
   // dùng effect nếu muốn tác động vào stream
   readonly setPage = this.effect<{ pageSize?: number; currentPage: number }>(
     pipe(
       debounceTime(250),
       tap(({ currentPage, pageSize }) => {
+        console.log(`pagination.store.ts => setPage<effect>`);
         this.patchState({ currentPage, pageSize });
       })
     )
   );
 
   ngrxOnStoreInit(): void {
+    console.log(`pagination.store.ts => ngrxOnStoreInit`);
+
     this.setState({
       currentPage: 1,
       total: 0,

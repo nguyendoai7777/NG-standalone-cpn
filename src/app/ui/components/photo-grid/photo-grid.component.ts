@@ -54,7 +54,6 @@ import { injectPaginationStore } from '@stores/pagination.store';
 })
 export default class PhotoGridComponent {
   @Input() searchBox = false;
-  readonly defQuery = injectDefaultQuery();
   readonly photosStore = injectPhotosStore();
   readonly paginatorStore = injectPaginationStore();
 }
